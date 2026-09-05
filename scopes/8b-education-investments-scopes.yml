@@ -1,0 +1,41 @@
+generated: '2026-09-05'
+method: probed
+source: https://www.8b.africa/.well-known/oauth-authorization-server
+docs: null
+docs_note: >-
+  8B publishes no scopes or permissions reference page. The scope set below is read
+  directly from the two machine-readable discovery documents the site serves, and nothing
+  is added to it. derive-oauth-scopes.py returned nothing for this provider because there
+  is no OpenAPI in the repository to derive from.
+api: 8b-education-investments-mcp
+flow: authorization_code
+grant_types_supported:
+- authorization_code
+- refresh_token
+response_types_supported:
+- code
+code_challenge_methods_supported:
+- S256
+authorization_endpoint: https://www.8b.africa/oauth/authorize
+token_endpoint: https://www.8b.africa/oauth/token
+revocation_endpoint: https://www.8b.africa/oauth/revoke
+scope_count: 1
+scopes:
+- name: mcp
+  description: >-
+    The single scope advertised by both the authorization-server metadata
+    (scopes_supported) and the protected-resource metadata. It gates the Model Context
+    Protocol endpoint at https://www.8b.africa/wp-json/mcp/mcp-oauth-server as a whole.
+    No finer-grained scopes are published, so there is no read/write or per-resource
+    separation an agent could request; a token either reaches the entire MCP surface or
+    none of it.
+  evidence: https://www.8b.africa/.well-known/oauth-authorization-server
+  resource: https://www.8b.africa/wp-json/mcp/mcp-oauth-server
+notes:
+- >-
+  scopes_supported appears identically in the RFC 8414 authorization-server document and
+  the RFC 9728 protected-resource document, which is the correct shape.
+- >-
+  Coarse granularity is the finding here: one scope over an unenumerated tool surface
+  means consent cannot be scoped to an operation. That is a property of the WordPress MCP
+  adapter default, not of a design decision 8B documented.

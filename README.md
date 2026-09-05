@@ -64,5 +64,46 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-8B Education Investments is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.nasdaqprivatemarket.com/
+8B Education Investments (legally 8B Finance, Inc., trading as 8B) is a New York headquartered
+education-finance company founded in 2017 by Lydiah Kemunto Bosire. It helps African students pay
+for degrees at universities outside Africa through a student-loan marketplace and eligibility
+comparison tool, an income-share and guarantee backed lending program originated with partner
+banks including Nelnet Bank, a University Reserve admissions product, and a free community
+platform offering scholarships, courses, forums, events and job listings.
+
+- Website: https://www.8b.africa/
+- About: https://www.8b.africa/about-8b/
+- Loan FAQ: https://www.8b.africa/studentloans/financing-faq/
+
+## What this profile found
+
+8B publishes **no developer program, no API reference and no OpenAPI**. It does, however, serve
+three real machine-readable documents, all captured here verbatim or as probed evidence:
+
+- **`llms.txt`** at https://www.8b.africa/llms.txt (HTTP 200) — a well-formed llms.txt generated
+  by Yoast SEO v28.4.
+- **An OAuth 2.0 authorization-server metadata document** (RFC 8414) at
+  `/.well-known/oauth-authorization-server` (HTTP 200) — authorization code with mandatory PKCE
+  S256, refresh tokens, public clients, one scope (`mcp`).
+- **An OAuth 2.0 protected-resource metadata document** (RFC 9728) at
+  `/.well-known/oauth-protected-resource` (HTTP 200) — naming a **Model Context Protocol endpoint**
+  at `https://www.8b.africa/wp-json/mcp/mcp-oauth-server`.
+
+That MCP endpoint is live and reachable. An anonymous `tools/list` returns **HTTP 401** with a
+conformant `WWW-Authenticate: Bearer` challenge pointing back at the resource metadata, so the tool
+surface is auth-gated and was **not** enumerated — no tool names or schemas are recorded here,
+because none were observed.
+
+**Authorship is platform, not provider.** The MCP server is registered by the WordPress MCP Adapter
+plugin family running on 8B's WP Engine hosted WordPress install (three servers are exposed:
+`mcp-oauth-server`, `mcp-adapter-default-server` and `amelia-mcp-server`). What is genuinely 8B's is
+the operation — the endpoint, the OAuth issuer and the data behind them are all on 8B's own host.
+The WordPress core `wp-json` REST API is deliberately **not** registered as an 8B API; it is the
+CMS platform's own surface, not a product 8B publishes.
+
+The community host `my.8b.africa` publishes a Cloudflare **Content Signals Policy** in its
+`robots.txt` (`search=yes,ai-train=no,use=reference`) and disallows seven AI crawlers including
+ClaudeBot. That policy is honoured: nothing from that host is stored in this repository.
+
+No security.txt, no api-catalog, no agent card, no status page, no changelog, no SDKs, no CLI, no
+GitHub organization and no published rate limits or API plans were found on any host.

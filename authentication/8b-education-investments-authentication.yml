@@ -1,0 +1,87 @@
+generated: '2026-09-05'
+method: probed
+source: >-
+  https://www.8b.africa/.well-known/oauth-authorization-server ,
+  https://www.8b.africa/.well-known/oauth-protected-resource , and an anonymous
+  JSON-RPC POST to https://www.8b.africa/wp-json/mcp/mcp-oauth-server
+docs: null
+docs_note: >-
+  There is no authentication page to search: 8B publishes no developer documentation.
+  Everything below was read off documents the site actually serves or off a live
+  challenge response. derive-authentication.py produced nothing because the repository
+  holds no OpenAPI with securitySchemes.
+summary: >-
+  The only authenticated API surface 8B exposes is its Model Context Protocol endpoint,
+  and it is protected by OAuth 2.1-style authorization code with PKCE. Discovery is
+  standards-correct end to end: the protected resource advertises its authorization
+  server, the authorization server advertises its endpoints and scope, and an
+  unauthenticated call returns 401 with a WWW-Authenticate Bearer challenge that points
+  back at the resource metadata. No API keys, no basic auth, no mTLS and no OpenID
+  Connect are offered.
+schemes:
+- name: mcp_oauth
+  type: oauth2
+  applies_to: https://www.8b.africa/wp-json/mcp/mcp-oauth-server
+  flows:
+    authorization_code:
+      authorization_url: https://www.8b.africa/oauth/authorize
+      token_url: https://www.8b.africa/oauth/token
+      revocation_url: https://www.8b.africa/oauth/revoke
+      refresh_supported: true
+      pkce_required: true
+      pkce_methods:
+      - S256
+      scopes:
+        mcp: Access to the Model Context Protocol endpoint.
+  client_authentication:
+    token_endpoint_auth_methods_supported:
+    - none
+    note: >-
+      Public clients only — the token endpoint accepts no client secret, which is the
+      expected posture for MCP clients running on a user's machine and is why PKCE is
+      mandatory rather than optional.
+  client_registration:
+    dynamic_client_registration_endpoint: null
+    client_id_metadata_document_supported: true
+    note: >-
+      No RFC 7591 registration endpoint is advertised. Instead the server declares
+      client_id_metadata_document_supported, so a client identifies itself by publishing a
+      client-ID metadata document at an HTTPS URL and using that URL as its client_id.
+  bearer:
+    methods_supported:
+    - header
+    note: Bearer token in the Authorization header. No query-parameter or body form offered.
+challenge:
+  observed: '2026-09-05'
+  url: https://www.8b.africa/wp-json/mcp/mcp-oauth-server
+  http_status: 401
+  www_authenticate: >-
+    Bearer realm="https://www.8b.africa",
+    resource_metadata="https://www.8b.africa/.well-known/oauth-protected-resource"
+  body: '{"code":"mcp_unauthorized","message":"MCP authentication required.","data":{"status":401}}'
+  note: >-
+    An RFC 9728 conformant challenge. An agent that receives this can discover how to
+    authenticate without any out-of-band documentation, which matters here precisely
+    because there is no documentation.
+unauthenticated_surfaces:
+- url: https://www.8b.africa/llms.txt
+  status: 200
+  note: Served anonymously.
+- url: https://www.8b.africa/.well-known/oauth-authorization-server
+  status: 200
+- url: https://www.8b.africa/.well-known/oauth-protected-resource
+  status: 200
+- url: https://www.8b.africa/wp-json/
+  status: 200
+  note: >-
+    The WordPress core REST discovery index is anonymously readable and lists 449 routes
+    across 28 namespaces. It is the CMS platform's own API, not a product API 8B
+    publishes, and it is deliberately NOT registered as an 8B API in apis.yml. It is
+    recorded here only because it is the surface on which the MCP endpoint is mounted.
+absent:
+- api_keys
+- http_basic
+- http_bearer_static
+- mutual_tls
+- openid_connect
+- jwt_signed_requests

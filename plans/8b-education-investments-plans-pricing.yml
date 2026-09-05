@@ -1,0 +1,37 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://www.8b.africa/ , https://www.8b.africa/studentloans/ ,
+  https://www.8b.africa/exploreloanoptions-2/ ,
+  https://www.8b.africa/studentloans/financing-faq/ and
+  https://www.8b.africa/universityreserve/
+plan_count: 0
+note: >-
+  8B publishes no API plans, tiers or developer pricing of any kind, because it runs no
+  developer program to price. What the site does publish is consumer product pricing —
+  student loan options, an eligibility comparison tool and a loan repayment calculator —
+  which is the price of a financial product, not the price of API access, and is
+  deliberately not recorded here as a plan. The single API surface in this profile, the
+  OAuth-protected MCP endpoint, has no advertised price, no free tier, no quota and no
+  signup path; it is an internal-facing plugin endpoint on the company's own WordPress
+  install. Recorded as an honest zero rather than omitted.
+plans: []
+consumer_products_seen:
+- name: Student loans
+  url: https://www.8b.africa/studentloans/
+  status: 200
+  note: >-
+    Loan products originated with partner lenders (Nelnet Bank committed USD 30 million to
+    the program). Terms are individually underwritten; no rate card is published at a
+    fixed URL.
+- name: Explore loan options
+  url: https://www.8b.africa/exploreloanoptions-2/
+  status: 200
+  note: Eligibility comparison across lenders. Not an API plan.
+- name: University Reserve
+  url: https://www.8b.africa/universityreserve/
+  status: 200
+- name: 8B community
+  url: https://www.8b.africa/community-login/
+  status: 200
+  note: Free to join per the company's own description of the community platform.

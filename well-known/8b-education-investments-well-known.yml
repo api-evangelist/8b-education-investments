@@ -1,0 +1,160 @@
+generated: '2026-09-05'
+method: probed
+source: >-
+  Anonymous HTTPS probes of /.well-known/ paths on every host this record knows —
+  the registrable domain and www, the community host, the Ladder host, the visa host
+  and the finance host. Statuses recorded verbatim.
+note: >-
+  Two real documents are served, both on the marketing host and both reachable at the
+  apex as well as www: an RFC 8414 OAuth authorization-server metadata document and an
+  RFC 9728 OAuth protected-resource metadata document. Together they advertise a Model
+  Context Protocol resource at https://www.8b.africa/wp-json/mcp/mcp-oauth-server with a
+  single scope, `mcp`. Both paths 301 to a trailing-slash form first (WordPress permalink
+  behaviour); the saved bodies are from the redirect target. No security.txt, no
+  api-catalog, no ai-plugin.json and no agent card are served anywhere. The community
+  (my.), Ladder (ladder.) and finance (finance.) hosts answer 403 to an anonymous
+  browser-agent request on every /.well-known/ path — an edge policy, not a document —
+  and the visa host answers 421 Misdirected Request on every path. Those are recorded as
+  the statuses they returned, not as absences.
+hosts:
+- host: www.8b.africa
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: 8b-education-investments-oauth-authorization-server.json
+    content_type: application/json
+    note: >-
+      RFC 8414. issuer https://www.8b.africa, authorization_code + refresh_token grants,
+      PKCE S256 required, token_endpoint_auth_methods_supported [none] (public clients),
+      client_id_metadata_document_supported true, scopes_supported [mcp].
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: 8b-education-investments-oauth-protected-resource.json
+    content_type: application/json
+    note: >-
+      RFC 9728. resource https://www.8b.africa/wp-json/mcp/mcp-oauth-server,
+      authorization_servers [https://www.8b.africa], bearer_methods_supported [header],
+      scopes_supported [mcp].
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: 8b.africa
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: 8b-education-investments-oauth-authorization-server.json
+    note: Apex redirects to www; same document.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: 8b-education-investments-oauth-protected-resource.json
+    note: Apex redirects to www; same document.
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+- host: my.8b.africa
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+    file: null
+    note: Edge policy returns an HTML block page for every /.well-known/ path on this host.
+  - path: /.well-known/openid-configuration
+    status: 403
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+    file: null
+  - path: /.well-known/api-catalog
+    status: 403
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 403
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 403
+    file: null
+  - path: /.well-known/agent.json
+    status: 403
+    file: null
+- host: ladder.8b.africa
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+- host: finance.8b.africa
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+- host: visa.8b.africa
+  documents:
+  - path: /.well-known/security.txt
+    status: 421
+    file: null
+    note: >-
+      Host answers 421 Misdirected Request to every path including /robots.txt — the
+      certificate/SNI mapping does not serve this hostname to an outside client.
+  - path: /.well-known/oauth-authorization-server
+    status: 421
+    file: null
+  - path: /.well-known/api-catalog
+    status: 421
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 421
+    file: null
+robots:
+- host: www.8b.africa
+  path: /robots.txt
+  status: 200
+  bytes: 0
+  note: Served but empty — no directives, no sitemap line, no AI-preference signal.
+- host: my.8b.africa
+  path: /robots.txt
+  status: 200
+  bytes: 1836
+  note: >-
+    Carries a Cloudflare Content Signals Policy preamble plus
+    "Content-Signal: search=yes,ai-train=no,use=reference" for User-agent *, and an explicit
+    Disallow / for Amazonbot, Applebot-Extended, Bytespider, CCBot, ClaudeBot,
+    CloudflareBrowserRenderingCrawler and Google-Extended. This is an AI-preference signal
+    the company genuinely publishes, and it is honoured here: nothing under my.8b.africa is
+    saved into this repository.

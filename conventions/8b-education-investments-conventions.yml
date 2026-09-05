@@ -1,0 +1,115 @@
+generated: '2026-09-05'
+method: probed
+source: >-
+  Live probes of https://www.8b.africa/wp-json/ , the MCP endpoint at
+  https://www.8b.africa/wp-json/mcp/mcp-oauth-server , and the two OAuth discovery
+  documents. No documentation exists to search — 8B publishes no developer portal,
+  reference or convention guide.
+scope_note: >-
+  These are the cross-cutting runtime semantics an agent would need, recorded for the one
+  API surface 8B actually exposes: an OAuth-protected MCP endpoint. Where 8B has published
+  nothing, that is stated as `none` or `undocumented` rather than filled with the
+  WordPress platform default, because a platform default an agent cannot read in any 8B
+  document is not a convention 8B has offered.
+authentication:
+  style: oauth2-authorization-code-pkce
+  transport: Authorization Bearer header
+  documented_by_provider: false
+  discoverable: true
+  detail: >-
+    Fully machine-discoverable through RFC 8414 + RFC 9728 metadata and a conformant 401
+    challenge, which is unusual and genuinely useful: an agent needs no human-readable
+    documentation to work out how to authenticate here.
+  see: authentication/8b-education-investments-authentication.yml
+idempotency:
+  coverage: none
+  scope: []
+  mechanism: null
+  header: null
+  retention: null
+  detail: >-
+    No Idempotency-Key header, no request-id-based replay protection and no documented
+    at-most-once semantics anywhere in the served surface. The MCP endpoint accepts POST
+    JSON-RPC calls with a client-chosen `id`, but JSON-RPC ids are correlation identifiers,
+    not idempotency keys — a repeated call is a repeated call. A client that retries a
+    mutating tool call has no published guarantee against duplication.
+  provider_documented: false
+reversibility:
+  grade: na
+  detail: >-
+    Not applicable, and honestly so rather than scored zero. The only API surface is an
+    auth-gated MCP endpoint whose tool list could not be enumerated anonymously, so no
+    write operation is publicly known to exist, and therefore no reversal operation can be
+    asserted or denied. 8B publishes no operation reference in which a cancel, refund,
+    void, undo or restore path could be documented, and no window is stated anywhere. No
+    window is invented here.
+  operations: []
+  windows: []
+  reassess_when: >-
+    The MCP tool list becomes enumerable with an authenticated token, or 8B publishes an
+    API reference — either would turn this from `na` into a real measurement.
+dry_run_mode:
+  supported: false
+  detail: No sandbox, test mode, simulation flag or dry-run parameter is published.
+pagination:
+  style: undocumented
+  detail: >-
+    8B documents no pagination convention. The underlying WordPress REST namespaces use
+    the platform's page / per_page parameters with X-WP-Total and X-WP-TotalPages response
+    headers (those header names are echoed in the endpoint's
+    Access-Control-Expose-Headers), but that is the CMS's behaviour on routes 8B does not
+    hold out as an API, and the MCP endpoint is a JSON-RPC surface with no HTTP pagination
+    at all.
+  provider_documented: false
+error_envelope:
+  format: wordpress-rest
+  content_type: application/json
+  shape: '{"code": "<string>", "message": "<human string>", "data": {"status": <int>}}'
+  rfc9457: false
+  observed:
+  - url: https://www.8b.africa/wp-json/mcp/mcp-oauth-server
+    status: 401
+    body: '{"code":"mcp_unauthorized","message":"MCP authentication required.","data":{"status":401}}'
+  - url: https://www.8b.africa/wp-json/mcp/amelia-mcp-server
+    status: 401
+    body: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'
+  detail: >-
+    Two different error codes for the same anonymous condition — mcp_unauthorized on the
+    OAuth-aware server, rest_forbidden on the two that are not OAuth-aware — which tells a
+    client that only one of the three endpoints participates in the MCP authorization
+    flow.
+  see: null
+rate_limit_signaling:
+  headers_observed: []
+  documented: false
+  detail: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header was returned on any anonymous
+    request, and no limits are published. See
+    rate-limits/8b-education-investments-rate-limits.yml.
+request_id_tracing:
+  header: null
+  documented: false
+  detail: >-
+    No request-id or correlation header is returned by the application. Cloudflare's
+    CF-Ray is present on every response as an edge trace identifier, but it is the CDN's,
+    not 8B's, and 8B does not document it as a support handle.
+versioning:
+  scheme: none
+  detail: >-
+    The MCP endpoint carries no version segment and no version parameter, and no
+    versioning or deprecation policy is published. The `mcp` REST namespace is unversioned,
+    unlike the WordPress namespaces beside it which carry /v1 or /v2.
+  see: null
+field_expansion:
+  supported: false
+metadata_fields:
+  supported: false
+webhooks:
+  published: false
+  detail: No webhook or event surface is documented or discoverable.
+cross_links:
+  authentication: authentication/8b-education-investments-authentication.yml
+  scopes: scopes/8b-education-investments-scopes.yml
+  conformance: conformance/8b-education-investments-conformance.yml
+  rate_limits: rate-limits/8b-education-investments-rate-limits.yml
+  mcp: mcp/8b-education-investments-mcp.yml

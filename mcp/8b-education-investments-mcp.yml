@@ -1,0 +1,85 @@
+generated: '2026-09-05'
+method: probed
+source: https://www.8b.africa/.well-known/oauth-protected-resource
+name: 8B Model Context Protocol Server
+status: live
+deployment:
+  mode: remote
+  endpoint: https://www.8b.africa/wp-json/mcp/mcp-oauth-server
+  auth: oauth
+  verified: probed
+evidence:
+  discovery:
+    protected_resource:
+      url: https://www.8b.africa/.well-known/oauth-protected-resource
+      status: 200
+      resource: https://www.8b.africa/wp-json/mcp/mcp-oauth-server
+      authorization_servers:
+      - https://www.8b.africa
+      bearer_methods_supported:
+      - header
+      scopes_supported:
+      - mcp
+    authorization_server:
+      url: https://www.8b.africa/.well-known/oauth-authorization-server
+      status: 200
+      issuer: https://www.8b.africa
+      authorization_endpoint: https://www.8b.africa/oauth/authorize
+      token_endpoint: https://www.8b.africa/oauth/token
+      revocation_endpoint: https://www.8b.africa/oauth/revoke
+  live_probe:
+    method: POST
+    url: https://www.8b.africa/wp-json/mcp/mcp-oauth-server
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    accept: application/json, text/event-stream
+    http_status: 401
+    response_body: '{"code":"mcp_unauthorized","message":"MCP authentication required.","data":{"status":401}}'
+    www_authenticate: >-
+      Bearer realm="https://www.8b.africa",
+      resource_metadata="https://www.8b.africa/.well-known/oauth-protected-resource"
+    fetched: '2026-09-05'
+tools: []
+tools_note: >-
+  NOT ENUMERATED. An anonymous tools/list returns 401 with a correctly-formed RFC 9728
+  WWW-Authenticate challenge, so the live tool schemas require an authenticated
+  introspection with an access token carrying the `mcp` scope. No tool names, descriptions
+  or inputSchemas are recorded here because none were observed, and none are published in
+  any 8B document. 8B ships no OpenAPI, so there is nothing to derive a candidate tool list
+  from either.
+sibling_servers:
+- name: mcp-adapter-default-server
+  endpoint: https://www.8b.africa/wp-json/mcp/mcp-adapter-default-server
+  http_status_anonymous: 401
+  response: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that."}'
+  note: >-
+    Registered in the same `mcp` REST namespace but has no OAuth protected-resource
+    document of its own; it rejects anonymous callers with a plain WordPress REST
+    permission error rather than a bearer challenge.
+- name: amelia-mcp-server
+  endpoint: https://www.8b.africa/wp-json/mcp/amelia-mcp-server
+  http_status_anonymous: 401
+  response: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that."}'
+  note: >-
+    Named for the Amelia booking plugin; presumably exposes appointment/booking tools.
+    Auth-gated, not enumerated.
+related_surfaces:
+- name: WordPress Abilities API
+  endpoint: https://www.8b.africa/wp-json/wp-abilities/v1/abilities
+  http_status_anonymous: 401
+  note: >-
+    The wp-abilities/v1 namespace is registered (abilities, categories, and a per-ability
+    /run route accepting GET/POST/PUT/PATCH/DELETE). It is the WordPress-native tool
+    description surface that backs the MCP adapter. Gated.
+- name: Uncanny Automator MCP
+  endpoint: https://www.8b.africa/wp-json/automator/v1/mcp
+  http_status_anonymous: 401
+authorship: platform
+authorship_note: >-
+  This server is PLATFORM-AUTHORED, not provider-authored. It is registered by the
+  WordPress MCP Adapter plugin family running on 8B's WP Engine hosted WordPress install
+  (the same install serves Divi, Yoast, Wordfence, Uncanny Automator and Amelia routes
+  under /wp-json/). 8B publishes no documentation for it and markets no developer program.
+  What is genuinely 8B's is the operation: the endpoint, the OAuth issuer, the token and
+  revocation endpoints and the tenant data behind them are all on 8B's own host under 8B's
+  own domain. Recorded here as a real, reachable agent surface with its authorship stated,
+  so that no downstream reader mistakes a plugin default for a product 8B designed.

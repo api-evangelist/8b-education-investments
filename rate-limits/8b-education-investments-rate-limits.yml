@@ -1,0 +1,34 @@
+generated: '2026-09-05'
+method: probed
+source: >-
+  Live anonymous requests to https://www.8b.africa/wp-json/mcp/mcp-oauth-server ,
+  https://www.8b.africa/wp-json/ and https://www.8b.africa/llms.txt , with full response
+  headers inspected. No documentation exists to search.
+limit_count: 0
+note: >-
+  8B publishes no rate limits, and none are observable. No X-RateLimit-*, RateLimit-* or
+  Retry-After header appeared on any anonymous response from any host, and no 429 was
+  produced. The only request-shaping in evidence is edge policy rather than an API quota:
+  Cloudflare bot management returns 403 on the community, Ladder and finance hosts to a
+  plain browser-agent request, and the marketing host issues a __cf_bm challenge cookie.
+  That is an anti-automation control, not a published limit an integrator can plan
+  against. Recorded as an honest zero.
+limits: []
+response_headers:
+  observed: []
+  documented: []
+exhaustion_status_code: null
+retry_after: null
+edge_controls:
+- host: www.8b.africa
+  control: Cloudflare bot management (__cf_bm cookie set on every response)
+  status_observed: 200
+- host: my.8b.africa
+  control: Cloudflare / Wordfence block page for anonymous browser-agent requests
+  status_observed: 403
+- host: ladder.8b.africa
+  control: Cloudflare block page for anonymous browser-agent requests
+  status_observed: 403
+- host: finance.8b.africa
+  control: Cloudflare block page for anonymous browser-agent requests
+  status_observed: 403
