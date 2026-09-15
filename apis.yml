@@ -1,15 +1,13 @@
 aid: 8b-education-investments
 name: 8B Education Investments
-description: '8B Education Investments (legally 8B Finance, Inc., trading as 8B) is a New York
-  headquartered education-finance company founded in 2017 by Lydiah Kemunto Bosire that helps
-  African students pay for degrees at universities outside Africa. It operates a student-loan
-  marketplace and eligibility comparison tool, an income-share and guarantee backed lending
-  program originated with partner banks including Nelnet Bank, a University Reserve admissions
-  product, and a free community platform of prospective and current students offering
-  scholarships, courses, forums, events and job listings. 8B publishes no public developer
-  program or API reference; the only machine-readable surfaces it serves are an llms.txt on its
-  marketing site and an OAuth-protected Model Context Protocol endpoint exposed by its WordPress
-  stack.'
+description: 8B Education Investments (legally 8B Finance, Inc., trading as 8B) is a New York headquartered
+  education-finance company founded in 2017 by Lydiah Kemunto Bosire that helps African students pay for
+  degrees at universities outside Africa. It operates a student-loan marketplace and eligibility comparison
+  tool, an income-share and guarantee backed lending program originated with partner banks including Nelnet
+  Bank, a University Reserve admissions product, and a free community platform of prospective and current
+  students offering scholarships, courses, forums, events and job listings. 8B publishes no public developer
+  program or API reference; the only machine-readable surfaces it serves are an llms.txt on its marketing
+  site and an OAuth-protected Model Context Protocol endpoint exposed by its WordPress stack.
 url: https://raw.githubusercontent.com/api-evangelist/8b-education-investments/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
@@ -18,6 +16,17 @@ specificationVersion: '0.20'
 created: '2026-09-05'
 modified: '2026-09-05'
 tags:
+- Company
+- Education
+- Student Loans
+- Financial-Services
+- Lending
+- Fintech
+- Africa
+- Higher Education
+- Study Abroad
+- Community
+tags_raw:
 - Company
 - Education
 - Student Loans
@@ -30,21 +39,24 @@ tags:
 - Community
 position: Producing
 apis:
-- aid: 8b-education-investments-mcp
+- aid: 8b-education-investments:8b-education-investments-mcp
   name: 8B Model Context Protocol Server
-  description: 'An OAuth-protected Model Context Protocol endpoint served from 8B''s own
-    WordPress installation at www.8b.africa. Discovery is standards-conformant: an RFC 8414
-    authorization-server metadata document and an RFC 9728 protected-resource metadata document
-    are both served anonymously, and an unauthenticated JSON-RPC tools/list returns HTTP 401 with
-    a WWW-Authenticate Bearer challenge naming the resource metadata. The tool list itself is
-    therefore auth-gated and was not enumerated. Authorship is platform, not provider: the server
-    is registered by the WordPress MCP Adapter plugin family (three servers are exposed —
-    mcp-oauth-server, mcp-adapter-default-server and amelia-mcp-server) rather than authored by
-    8B, but it is operated on 8B''s own host under 8B''s own OAuth issuer.'
+  description: 'An OAuth-protected Model Context Protocol endpoint served from 8B''s own WordPress installation
+    at www.8b.africa. Discovery is standards-conformant: an RFC 8414 authorization-server metadata document
+    and an RFC 9728 protected-resource metadata document are both served anonymously, and an unauthenticated
+    JSON-RPC tools/list returns HTTP 401 with a WWW-Authenticate Bearer challenge naming the resource
+    metadata. The tool list itself is therefore auth-gated and was not enumerated. Authorship is platform,
+    not provider: the server is registered by the WordPress MCP Adapter plugin family (three servers are
+    exposed — mcp-oauth-server, mcp-adapter-default-server and amelia-mcp-server) rather than authored
+    by 8B, but it is operated on 8B''s own host under 8B''s own OAuth issuer.'
   humanURL: https://www.8b.africa/
   baseURL: https://www.8b.africa/wp-json/mcp/mcp-oauth-server
   image: https://www.8b.africa/wp-content/uploads/2022/06/cropped-8b-Icon-192x192.png
   tags:
+  - MCP
+  - Agents
+  - Authentication
+  tags_raw:
   - MCP
   - Agents
   - OAuth
