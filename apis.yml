@@ -19,7 +19,7 @@ tags:
 - Company
 - Education
 - Student Loans
-- Financial-Services
+- Financial Services
 - Lending
 - Fintech
 - Africa
@@ -37,6 +37,7 @@ tags_raw:
 - Higher Education
 - Study Abroad
 - Community
+- Financial-Services
 position: Producing
 apis:
 - aid: 8b-education-investments:8b-education-investments-mcp
@@ -67,6 +68,9 @@ apis:
     url: authentication/8b-education-investments-authentication.yml
   - type: OAuthScopes
     url: scopes/8b-education-investments-scopes.yml
+  x-surface: platform-generated
+  x-platform: wordpress
+  x-platform-surface: mcp-plugin
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
