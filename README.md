@@ -64,46 +64,114 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-8B Education Investments (legally 8B Finance, Inc., trading as 8B) is a New York headquartered
-education-finance company founded in 2017 by Lydiah Kemunto Bosire. It helps African students pay
-for degrees at universities outside Africa through a student-loan marketplace and eligibility
-comparison tool, an income-share and guarantee backed lending program originated with partner
-banks including Nelnet Bank, a University Reserve admissions product, and a free community
-platform offering scholarships, courses, forums, events and job listings.
+8B Education Investments (legally 8B Finance, Inc., trading as 8B) is a New York headquartered education-finance company founded in 2017 by Lydiah Kemunto Bosire that helps African students pay for degrees at universities outside Africa. It operates a student-loan marketplace and eligibility comparison tool, an income-share and guarantee backed lending program originated with partner banks including Nelnet Bank, a University Reserve admissions product, and a free community platform of prospective and current students offering scholarships, courses, forums, events and job listings. 8B publishes no public developer program or API reference; the only machine-readable surfaces it serves are an llms.txt on its marketing site and an OAuth-protected Model Context Protocol endpoint exposed by its WordPress stack.
 
-- Website: https://www.8b.africa/
-- About: https://www.8b.africa/about-8b/
-- Loan FAQ: https://www.8b.africa/studentloans/financing-faq/
+**Areas:** Company · Education · Student Loans · Financial Services · Lending · Fintech · Africa · Higher Education · Study Abroad · Community
 
-## What this profile found
+## 8B Education Investments on APIs.io
 
-8B publishes **no developer program, no API reference and no OpenAPI**. It does, however, serve
-three real machine-readable documents, all captured here verbatim or as probed evidence:
+Everything profiled for 8B Education Investments is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/8b-education-investments/](https://apis.io/providers/8b-education-investments/)** — or go straight to one of the APIs or properties below.
 
-- **`llms.txt`** at https://www.8b.africa/llms.txt (HTTP 200) — a well-formed llms.txt generated
-  by Yoast SEO v28.4.
-- **An OAuth 2.0 authorization-server metadata document** (RFC 8414) at
-  `/.well-known/oauth-authorization-server` (HTTP 200) — authorization code with mandatory PKCE
-  S256, refresh tokens, public clients, one scope (`mcp`).
-- **An OAuth 2.0 protected-resource metadata document** (RFC 9728) at
-  `/.well-known/oauth-protected-resource` (HTTP 200) — naming a **Model Context Protocol endpoint**
-  at `https://www.8b.africa/wp-json/mcp/mcp-oauth-server`.
+### APIs (1)
 
-That MCP endpoint is live and reachable. An anonymous `tools/list` returns **HTTP 401** with a
-conformant `WWW-Authenticate: Bearer` challenge pointing back at the resource metadata, so the tool
-surface is auth-gated and was **not** enumerated — no tool names or schemas are recorded here,
-because none were observed.
+- [8B Model Context Protocol Server](https://apis.io/apis/8b-education-investments/8b-education-investments-mcp/) — An OAuth-protected Model Context Protocol endpoint served from 8B's own WordPress installation at www.8b.africa. Discovery is standards-conformant: an RFC…
 
-**Authorship is platform, not provider.** The MCP server is registered by the WordPress MCP Adapter
-plugin family running on 8B's WP Engine hosted WordPress install (three servers are exposed:
-`mcp-oauth-server`, `mcp-adapter-default-server` and `amelia-mcp-server`). What is genuinely 8B's is
-the operation — the endpoint, the OAuth issuer and the data behind them are all on 8B's own host.
-The WordPress core `wp-json` REST API is deliberately **not** registered as an 8B API; it is the
-CMS platform's own surface, not a product 8B publishes.
+### Published properties
 
-The community host `my.8b.africa` publishes a Cloudflare **Content Signals Policy** in its
-`robots.txt` (`search=yes,ai-train=no,use=reference`) and disallows seven AI crawlers including
-ClaudeBot. That policy is honoured: nothing from that host is stored in this repository.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-No security.txt, no api-catalog, no agent card, no status page, no changelog, no SDKs, no CLI, no
-GitHub organization and no published rate limits or API plans were found on any host.
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [8B Model Context Protocol Server](https://apis.io/servers/8b-education-investments/8b-model-context-protocol-server/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [8B Education Investments Authentication](https://apis.io/security/8b-education-investments/8b-education-investments-authentication/)
+- [8B Education Investments Domain Security](https://apis.io/security/8b-education-investments/8b-education-investments-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [8B Education Investments Scopes](https://apis.io/scopes/8b-education-investments/8b-education-investments-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [8B Education Investments Plans Pricing](https://apis.io/plans/8b-education-investments/8b-education-investments-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [8B Education Investments Rate Limits](https://apis.io/rate-limits/8b-education-investments/8b-education-investments-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.8b.africa/)
+- [Support](https://www.8b.africa/contact-us/)
+- [Blog](https://www.8b.africa/blogs/)
+- [Terms of service](https://www.8b.africa/terms-of-use/)
+- [Privacy policy](https://www.8b.africa/privacy-policy/)
+
+## API Evangelist rating
+
+**Kin Score 21.5** — emerging · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.8 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 19.0 |
+| Access clarity | 27.6 |
+
+**Agent readiness 19.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 34.3** — Education & Research
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/8b-education-investments/](https://apis.io/providers/8b-education-investments/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for 8B Education Investments: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/8b-education-investments/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
